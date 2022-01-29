@@ -30,8 +30,9 @@
                 <td width="120">{{ item.origin_price }}</td>
                 <td width="120">{{ item.price }}</td>
                 <td width="150">
-                  <span class="text-success" v-if="item.is_enabled">啟用</span>
-                  <span v-else>未啟用</span>
+                  <span :class="{'text-success' : item.is_enabled  ,'text-danger' : !item.is_enabled }">
+                    {{item.is_enabled ? '啟用'  :'未啟用'}}  
+                  </span>
                 </td>
                 <td width="120">
                   <button type="button" class="btn btn-primary" @click="showProduct(item)">查看細節</button>
@@ -39,33 +40,32 @@
               </tr>
             </tbody>
           </table>
-          <p>目前有 <span>{{ products.length }}</span> 項產品</p>
-            
-          <div class="col-md-6">
-            <h2>單一產品細節</h2>
-            <template v-if="itemTemp.id">
-              <div class="card mb-3">
-                <img v-bind:src="itemTemp.imageUrl" class="card-img-top primary-image" alt="主圖">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    {{ itemTemp.title }}
-                    <span class="badge bg-primary ms-2">{{ itemTemp.category }}</span>
-                  </h5>
-                  <p class="card-text">商品描述：{{ itemTemp.description }}</p>
-                  <p class="card-text">商品內容：{{ itemTemp.content }}</p>
-                  <div class="d-flex">
-                    <p class="card-text me-2">{{ itemTemp.price }}</p>
-                    <p class="card-text text-secondary"><del>{{ itemTemp.origin_price }}</del></p>
-                    {{ }} / 元
-                  </div>
+          <p>目前有 <span>{{ products.length }}</span> 項產品</p>      
+        </div>
+        <div class="col-md-6">
+          <h2>單一產品細節</h2>
+          <template v-if="itemTemp.id">
+            <div class="card mb-3">
+              <img v-bind:src="itemTemp.imageUrl" class="card-img-top primary-image" alt="主圖">
+              <div class="card-body">
+                <h5 class="card-title">
+                  {{ itemTemp.title }}
+                  <span class="badge bg-primary ms-2">{{ itemTemp.category }}</span>
+                </h5>
+                <p class="card-text">商品描述：{{ itemTemp.description }}</p>
+                <p class="card-text">商品內容：{{ itemTemp.content }}</p>
+                <div class="d-flex">
+                  <p class="card-text me-2">{{ itemTemp.price }}</p>
+                  <p class="card-text text-secondary"><del>{{ itemTemp.origin_price }}</del></p>
+                  {{ }} / 元
                 </div>
               </div>
-              <template v-for="item in itemTemp.imagesUrl">
-                <img v-if="itemTemp.id" v-bind:src="item" alt="" class="images m-2">
-              </template>
+            </div>
+            <template v-for="item in itemTemp.imagesUrl">
+              <img v-if="itemTemp.id" v-bind:src="item" alt="" class="images m-2">
             </template>
-            <p class="text-secondary" v-else>請選擇一個商品查看</p>
-          </div>  
+          </template>
+          <p class="text-secondary" v-else>請選擇一個商品查看</p>
         </div>
       </div>
     </div>
